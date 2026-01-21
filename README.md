@@ -1,182 +1,111 @@
-Bearer Auth MVC - API Documentation
-Base URL
+# Bearer Auth MVC
+
+## Overview
+This is a **Node.js backend project** implementing **user authentication and authorization** using **JWT (JSON Web Tokens)** and **Bearer tokens**.  
+The project follows the **MVC architecture** and uses **MongoDB Atlas** as the database. All APIs are tested using **Postman**.  
+
+---
+
+## Base URL
 Local: http://localhost:5000
-Deployed: https://authentication-h0px.onrender.com
+Deployed: https://your-backend-url.onrender.com
 
-1️⃣ Register User
+yaml
+Copy code
 
-Endpoint: /api/auth/register
+---
 
-Method: POST
+## API Endpoints
 
-Description: Creates a new user account. Password is hashed before saving.
+### 1️⃣ Register User
+**POST** `/api/auth/register`  
 
-Headers:
+**Description:** Creates a new user account. Passwords are hashed before storing.
 
+**Headers:**
 Content-Type: application/json
 
+css
+Copy code
 
-Request Body (JSON):
-
-{
-  "username": "TestUser",
-  "email": "testuser@gmail.com",
-  "password": "123456"
-}
-
-
-Success Response (201 Created):
-
-{
-  "message": "User registered successfully"
-}
-
-
-Error Responses:
-
-400 Bad Request: Missing required fields
-
-{
-  "error": "Username, email, and password are required"
-}
-
-
-409 Conflict: Email already exists
-
-{
-  "error": "Email already exists"
-}
-
-2️⃣ Login User
-
-Endpoint: /api/auth/login
-
-Method: POST
-
-Description: Logs in a user and returns a JWT token for authentication.
-
-Headers:
-
-Content-Type: application/json
-
-
-Request Body (JSON):
-
-{
-  "email": "testuser@gmail.com",
-  "password": "123456"
-}
-
-
-Success Response (200 OK):
-
-{
-  "token": "<JWT_TOKEN>"
-}
-
-
-Error Responses:
-
-400 Bad Request: Missing email or password
-
-{
-  "error": "Email and password are required"
-}
-
-
-401 Unauthorized: Invalid credentials
-
-{
-  "error": "Invalid email or password"
-}
-
-3️⃣ Get User Profile (Protected)
-
-Endpoint: /api/auth/profile
-
-Method: GET
-
-Description: Retrieves the logged-in user's information. Requires Bearer token in headers.
-
-Headers:
-
-Authorization: Bearer <JWT_TOKEN>
-Content-Type: application/json
-
-
-Success Response (200 OK):
-
-{
-  "message": "User profile fetched successfully",
-  "user": {
-    "id": "642abcd12345",
-    "username": "TestUser",
-    "email": "testuser@gmail.com"
-  }
-}
-
-
-Error Responses:
-
-401 Unauthorized: Missing token
-
-{
-  "error": "No token provided"
-}
-
-
-403 Forbidden: Invalid or expired token
-
-{
-  "error": "Invalid token"
-}
-
-4️⃣ Notes / Additional Info
-
-Password Security: All passwords are hashed with bcrypt before storing.
-
-JWT Token: Use the token received from /login for all protected routes.
-
-Error Handling: Each endpoint returns proper HTTP status codes and descriptive messages.
-
-Testing: You can test all endpoints with Postman using either local URL or deployed URL.
-
-Example API Flow
-
-Register
-
-POST /api/auth/register
+**Request Body:**
+```json
 {
   "username": "exampleUser",
   "email": "user@example.com",
   "password": "password123"
 }
+Success Response (201 Created):
 
+json
+Copy code
+{
+  "message": "User registered successfully"
+}
+Error Responses:
 
-Login
-
+json
+Copy code
+{
+  "error": "Email already exists"
+}
+json
+Copy code
+{
+  "error": "Username, email, and password are required"
+}
+2️⃣ Login User
 POST /api/auth/login
+
+Description: Logs in a user and returns a JWT token.
+
+Headers:
+
+pgsql
+Copy code
+Content-Type: application/json
+Request Body:
+
+json
+Copy code
 {
   "email": "user@example.com",
   "password": "password123"
 }
+Success Response (200 OK):
 
-
-Returns:
-
+json
+Copy code
 {
   "token": "<JWT_TOKEN>"
 }
+Error Responses:
 
-
-Access Profile
-
+json
+Copy code
+{
+  "error": "Invalid email or password"
+}
+json
+Copy code
+{
+  "error": "Email and password are required"
+}
+3️⃣ Get User Profile (Protected)
 GET /api/auth/profile
-Headers: Authorization: Bearer <JWT_TOKEN>
 
+Description: Retrieves the logged-in user's information. Requires a valid Bearer token.
 
-Returns:
+Headers:
 
+pgsql
+Copy code
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+Success Response (200 OK):
+
+json
+Copy code
 {
   "message": "User profile fetched successfully",
   "user": {
@@ -185,3 +114,78 @@ Returns:
     "email": "user@example.com"
   }
 }
+Error Responses:
+
+json
+Copy code
+{
+  "error": "No token provided"
+}
+json
+Copy code
+{
+  "error": "Invalid token"
+}
+Example Flow
+Register
+
+json
+Copy code
+POST /api/auth/register
+{
+  "username": "exampleUser",
+  "email": "user@example.com",
+  "password": "password123"
+}
+Login
+
+json
+Copy code
+POST /api/auth/login
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+Returns:
+
+json
+Copy code
+{
+  "token": "<JWT_TOKEN>"
+}
+Access Profile
+
+json
+Copy code
+GET /api/auth/profile
+Headers: Authorization: Bearer <JWT_TOKEN>
+Returns:
+
+json
+Copy code
+{
+  "message": "User profile fetched successfully",
+  "user": {
+    "id": "USER_ID",
+    "username": "exampleUser",
+    "email": "user@example.com"
+  }
+}
+Notes
+All passwords are hashed using bcrypt before saving.
+
+Protected routes require a valid JWT token in the Authorization header.
+
+You can test endpoints using Postman with either the local URL or the deployed Render URL.
+
+Tech Stack
+Node.js
+
+Express.js
+
+MongoDB Atlas (Mongoose)
+
+JWT (JSON Web Tokens)
+
+Postman (for API testing)
+
