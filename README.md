@@ -26,4 +26,15 @@ All APIs are tested using **Postman**.
 ---
 
 ## Folder Structure
-
+bearer-auth-mvc/
+│
+├─ src/
+│ ├─ controllers/ # API controller functions
+│ ├─ models/ # Mongoose models (User)
+│ ├─ routes/ # API routes
+│ ├─ middleware/ # JWT auth middleware
+│ └─ app.js # Express app
+│
+├─ .env # Environment variables
+├─ package.json
+└─ README.md
