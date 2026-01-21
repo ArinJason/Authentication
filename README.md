@@ -1,26 +1,45 @@
-# Bearer Auth MVC
+# 🔐 Bearer Auth MVC
 
-## Overview
-This is a **Node.js backend project** implementing **user authentication and authorization** using **JWT (JSON Web Tokens)** and **Bearer tokens**.  
-The project follows the **MVC architecture** and uses **MongoDB Atlas** as the database. All APIs are tested using **Postman**.  
-
----
-
-## Base URL
-Local: http://localhost:5000
-Deployed: https://your-backend-url.onrender.com
-
-yaml
-Copy code
+[![Node.js](https://img.shields.io/badge/Node.js-14.x-green)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-blue)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen)](https://www.mongodb.com/cloud/atlas)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
 
-## API Endpoints
+## 📖 Overview
+**Bearer Auth MVC** is a **Node.js backend project** demonstrating **user authentication and authorization** using **JWT (JSON Web Tokens)** and **Bearer tokens**.  
+
+The project follows the **MVC architecture**, uses **MongoDB Atlas** for the database, and includes fully functional APIs for:
+
+- User Registration  
+- User Login  
+- Protected Profile Route  
+
+All APIs are tested using **Postman**.
+
+---
+
+## 🌐 Base URLs
+| Environment | URL |
+|-------------|-----|
+| Local       | `http://localhost:5000` |
+| Deployed    | `https://your-backend-url.onrender.com` |
+
+---
+
+## 📌 API Endpoints
+
+| Method | Endpoint | Description | Protected |
+|--------|---------|------------|-----------|
+| POST   | `/api/auth/register` | Register a new user | ❌ No |
+| POST   | `/api/auth/login`    | Login and get JWT token | ❌ No |
+| GET    | `/api/auth/profile`  | Fetch logged-in user's profile | ✅ Yes |
+
+---
 
 ### 1️⃣ Register User
 **POST** `/api/auth/register`  
-
-**Description:** Creates a new user account. Passwords are hashed before storing.
 
 **Headers:**
 Content-Type: application/json
@@ -57,8 +76,6 @@ Copy code
 2️⃣ Login User
 POST /api/auth/login
 
-Description: Logs in a user and returns a JWT token.
-
 Headers:
 
 pgsql
@@ -91,10 +108,8 @@ Copy code
 {
   "error": "Email and password are required"
 }
-3️⃣ Get User Profile (Protected)
+3️⃣ Get Profile (Protected)
 GET /api/auth/profile
-
-Description: Retrieves the logged-in user's information. Requires a valid Bearer token.
 
 Headers:
 
@@ -126,8 +141,8 @@ Copy code
 {
   "error": "Invalid token"
 }
-Example Flow
-Register
+⚡ Example Flow
+Register a User
 
 json
 Copy code
@@ -146,46 +161,45 @@ POST /api/auth/login
   "email": "user@example.com",
   "password": "password123"
 }
-Returns:
-
-json
-Copy code
-{
-  "token": "<JWT_TOKEN>"
-}
 Access Profile
 
 json
 Copy code
 GET /api/auth/profile
 Headers: Authorization: Bearer <JWT_TOKEN>
-Returns:
+🛠 Tech Stack
+Node.js – JavaScript runtime
 
-json
+Express.js – Web framework
+
+MongoDB Atlas – Cloud database
+
+Mongoose – MongoDB ODM
+
+JWT – JSON Web Tokens for authentication
+
+Postman – API testing
+
+📌 Notes
+Passwords are hashed with bcrypt before saving.
+
+Protected routes require a JWT token in the Authorization header.
+
+You can test endpoints locally or via the deployed Render URL.
+
+📄 License
+This project is open-source under the MIT License.
+
+yaml
 Copy code
-{
-  "message": "User profile fetched successfully",
-  "user": {
-    "id": "USER_ID",
-    "username": "exampleUser",
-    "email": "user@example.com"
-  }
-}
-Notes
-All passwords are hashed using bcrypt before saving.
 
-Protected routes require a valid JWT token in the Authorization header.
+---
 
-You can test endpoints using Postman with either the local URL or the deployed Render URL.
+This version includes:
 
-Tech Stack
-Node.js
+- **Badges** for Node.js, Express, MongoDB, License  
+- **Tables** for endpoints and base URLs  
+- **Clear sectioning** for API, tech stack, notes, and license  
+- **Anonymous examples**  
 
-Express.js
-
-MongoDB Atlas (Mongoose)
-
-JWT (JSON Web Tokens)
-
-Postman (for API testing)
-
+---
